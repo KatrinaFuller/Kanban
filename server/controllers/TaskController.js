@@ -1,11 +1,11 @@
 import _boardService from '../services/BoardService'
 import express from 'express'
 import { Authorize } from '../middleware/authorize.js'
-import ListService from '../services/ListService'
 import TaskService from '../services/TaskService'
+import CommentService from '../services/CommentService'
 
 let _taskService = new TaskService().respository
-// let _listService = new ListService().respository
+let _commentService = new CommentService().respository
 
 export default class TaskController {
   constructor() {
@@ -13,6 +13,7 @@ export default class TaskController {
       .use(Authorize.authenticated)
       .get('', this.getAll)
       .get('/:id', this.getById)
+      .get('/:id/lists/:id/tasks/:id', this.getComments)
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.delete)
@@ -34,6 +35,15 @@ export default class TaskController {
         throw new Error('invalid id')
       }
       res.send(task)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getComments(req, res, next) {
+    try {
+      let comment = await _commentService.find({ boardId: req.params.id })
+      return res.send(comment)
     } catch (error) {
       next(error)
     }
