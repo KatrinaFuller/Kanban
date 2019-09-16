@@ -1,16 +1,15 @@
 import _boardService from '../services/BoardService'
 import express from 'express'
-import { Authorize } from '../middleware/authorize.js'
-import ListService from '../services/ListService'
 import TaskService from '../services/TaskService'
+import CommentService from '../services/CommentService'
 
 let _taskService = new TaskService().respository
-// let _listService = new ListService().respository
+let _commentService = new CommentService().respository
 
-export default class TaskController {
+
+export default class CommentController {
   constructor() {
     this.router = express.Router()
-      .use(Authorize.authenticated)
       .get('', this.getAll)
       .get('/:id', this.getById)
       .post('', this.create)
@@ -20,8 +19,8 @@ export default class TaskController {
 
   async getAll(req, res, next) {
     try {
-      let task = await _taskService.find({})
-      return res.send(task)
+      let comment = await _commentService.find({})
+      return res.send(comment)
     } catch (error) {
       next(error)
     }
@@ -29,21 +28,20 @@ export default class TaskController {
 
   async getById(req, res, next) {
     try {
-      let task = await _taskService.findById(req.params.id)
-      if (!task) {
+      let comment = await _commentService.findById(req.params.id)
+      if (!comment) {
         throw new Error('invalid id')
       }
-      res.send(task)
+      res.send(comment)
     } catch (error) {
       next(error)
     }
   }
 
-
   async create(req, res, next) {
     try {
-      let task = await _taskService.create(req.body)
-      res.send(task)
+      let comment = await _commentService.create(req.body)
+      res.send(comment)
     } catch (error) {
       next(error)
     }
@@ -51,9 +49,9 @@ export default class TaskController {
 
   async edit(req, res, next) {
     try {
-      let task = await _taskService.findOneAndUpdate({ _id: req.params.id, }, req.body, { new: true })
-      if (task) {
-        return res.send(task)
+      let comment = await _commentService.findOneAndUpdate({ _id: req.params.id, }, req.body, { new: true })
+      if (comment) {
+        return res.send(comment)
       }
       throw new Error("invalid id")
     } catch (error) {
@@ -61,10 +59,11 @@ export default class TaskController {
     }
   }
 
+
   async delete(req, res, next) {
     try {
-      await _taskService.findByIdAndRemove({ _id: req.params.id })
-      res.send('deleted task')
+      await _commentService.findByIdAndRemove({ _id: req.params.id })
+      res.send('deleted comment')
     } catch (error) {
       next(error)
     }
