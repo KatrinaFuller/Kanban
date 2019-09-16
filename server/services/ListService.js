@@ -28,4 +28,8 @@ _schema.pre('findOneAndRemove', function (next) {
     .catch(err => next(err))
 })
 
-export default mongoose.model('List', _schema)
+export default class ListServie {
+  get respository() {
+    return mongoose.model('List', _schema)
+  }
+}
