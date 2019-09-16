@@ -31,7 +31,13 @@ _schema.statics.generateHash = function (password) {
   return bcrypt.hashSync(password, SALT)
 }
 
-export default mongoose.model('User', _schema)
+
+
+export default class UserServie {
+  get respository() {
+    return mongoose.model('User', _schema)
+  }
+}
 
 
 
