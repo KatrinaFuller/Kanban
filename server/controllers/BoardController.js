@@ -1,8 +1,9 @@
-import _boardService from '../services/BoardService'
+import BoardService from '../services/BoardService'
 import express from 'express'
 import { Authorize } from '../middleware/authorize.js'
 import ListService from '../services/ListService'
 
+let _boardService = new BoardService().respository
 let _listService = new ListService().respository
 
 //PUBLIC
