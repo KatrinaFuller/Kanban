@@ -4,6 +4,7 @@ import Axios from 'axios'
 import router from './router'
 import AuthService from './AuthService'
 
+
 Vue.use(Vuex)
 
 //Allows axios to work locally or live
@@ -19,7 +20,8 @@ export default new Vuex.Store({
   state: {
     user: {},
     boards: [],
-    activeBoard: {}
+    activeBoard: {},
+    lists: []
   },
   mutations: {
     setUser(state, user) {
@@ -27,6 +29,9 @@ export default new Vuex.Store({
     },
     setBoards(state, boards) {
       state.boards = boards
+    },
+    setLists(state, payload) {
+      state.lists = payload
     }
   },
   actions: {
@@ -74,11 +79,30 @@ export default new Vuex.Store({
         .then(serverBoard => {
           dispatch('getBoards')
         })
-    }
+    },
     //#endregion
 
 
     //#region -- LISTS --
+    async getLists({ commit, dispatch }) {
+      try {
+        let res = await api.get("lists") //get all lists in entire db (/api/boards/:id/lists)
+        commit("setLists", res.data)
+
+      } catch (error) {
+        console.error('store.js: getLists')
+      }
+    },
+
+    async addList({ dispatch }, payload) {
+      try {
+        let res = await api.post("/lists", payload)
+        dispatch("getLists")
+      } catch (error) {
+        console.error("store.js: addList")
+
+      }
+    }
 
 
 
