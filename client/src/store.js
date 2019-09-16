@@ -84,13 +84,14 @@ export default new Vuex.Store({
 
 
     //#region -- LISTS --
-    async getLists({ commit, dispatch }) {
+    async getListsById({ commit, dispatch }, payload) {
       try {
-        let res = await api.get("lists") //get all lists in entire db (/api/boards/:id/lists)
+        // let res = await api.get("lists") //get all lists in entire db (/api/boards/:id/lists)
+        let res = await api.get(`/boards/${payload}/lists`)
         commit("setLists", res.data)
 
       } catch (error) {
-        console.error('store.js: getLists')
+        console.error('store.js: getListsById')
       }
     },
 

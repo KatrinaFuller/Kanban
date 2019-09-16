@@ -4,11 +4,14 @@
     <div class="row">
       <List v-for="list in lists" :listProp="list" :key="list._id" />
     </div>
+    <CreateListModal />
+    <button class="btn btn-primary" data-toggle="modal" data-target="#create-list-modal">Add List</button>
   </div>
 </template>
 
 <script>
 import List from "../components/List";
+import CreateListModal from "../components/CreateListModal";
 export default {
   name: "board",
   data() {
@@ -16,7 +19,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch("getBoards");
-    this.$store.dispatch("getLists");
+    // this.$store.dispatch("getLists");
   },
   props: ["boardId"],
   //props: ["listId"],
@@ -33,6 +36,6 @@ export default {
       this.$store.state.lists;
     }
   },
-  components: { List }
+  components: { List, CreateListModal }
 };
 </script>
