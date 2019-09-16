@@ -10,7 +10,7 @@ let _commentService = new CommentService().respository
 export default class TaskController {
   constructor() {
     this.router = express.Router()
-      .use(Authorize.authenticated)
+      // .use(Authorize.authenticated)
       .get('', this.getAll)
       .get('/:id', this.getById)
       .get('/:id/lists/:id/tasks/:id', this.getComments)
