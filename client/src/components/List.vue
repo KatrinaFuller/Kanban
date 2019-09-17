@@ -1,6 +1,7 @@
 <template>
-  <div class="List col-3 border rounded" @click="viewList()">
+  <div class="List col-3 border rounded">
     <h1>{{listProp.title}}</h1>
+    <button class="btn btn-danger" @click="removeList">Delete List</button>
   </div>
 </template>
 
@@ -14,14 +15,18 @@ export default {
   },
   computed: {},
   methods: {
-    viewList() {
-      this.$router.push({
-        name: "List",
-        params: {
-          listId: this.listProp._id,
-          boardId: this.boardProp._id
-        }
-      });
+    // viewList() {
+    //   this.$router.push({
+    //     name: "List",
+    //     params: {
+    //       listId: this.listProp._id,
+    //       boardId: this.boardProp._id
+    //     }
+    //   });
+    // },
+    removeList() {
+      this.$store.dispatch("removeList", this.listProp);
+      // this.$store.dispatch("removeList", this.boardProp._id);
     }
   },
   components: {}

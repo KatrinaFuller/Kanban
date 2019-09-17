@@ -107,6 +107,16 @@ export default new Vuex.Store({
         console.error("store.js: addList")
 
       }
+    },
+
+    async removeList({ dispatch }, payload) {
+      try {
+        let res = await api.delete('/lists/' + payload._id)
+        dispatch('getListsById', payload.boardId)
+        // router.push({ name: "board" })
+      } catch (error) {
+        console.error("store.js: removeList")
+      }
     }
 
 
