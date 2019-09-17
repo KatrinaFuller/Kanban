@@ -4,7 +4,7 @@
     <Task v-for="task in tasks" :taskProp="task" :listProp="list" :key="task._id" />
     <br />
     <button class="btn btn-danger" @click="removeList">Delete List</button>
-    <CreateTaskModal />
+    <CreateTaskModal :listId="listProp._id" />
     <button class="btn btn-primary" data-toggle="modal" data-target="#create-task-modal">Add Task</button>
   </div>
 </template>
@@ -16,15 +16,12 @@ import CreateTaskModal from "../components/CreateTaskModal";
 
 export default {
   name: "List",
-  props: ["listProp", "boardProp", "authorProp"],
+  props: ["listProp"],
   data() {
     return {};
   },
   mounted() {
-    this.$store.dispatch("getTasksById", {
-      listId: this.listProp._id,
-      boardId: this.listProp.boardId
-    });
+    this.$store.dispatch("getTasksById", this.listProp._id);
   },
   computed: {},
   methods: {

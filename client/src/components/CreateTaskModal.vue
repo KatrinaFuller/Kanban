@@ -39,16 +39,16 @@ export default {
   data() {
     return {
       newTask: {
-        description: "",
-        listId: this.$route.params.listId
+        description: ""
       }
     };
   },
+  props: ["listId"],
   computed: {},
   methods: {
     addTask() {
-      this.newTask.listId = this.$route.params.listId;
-
+      this.newTask.boardId = this.$route.params.boardId;
+      this.newTask.listId = this.listId;
       this.$store.dispatch("addTask", this.newTask);
       this.newTask = {};
       $(".close").click();

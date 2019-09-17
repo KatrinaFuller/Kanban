@@ -51,6 +51,7 @@ export default class TaskController {
 
 
   async create(req, res, next) {
+    req.body.authorId = req.session.uid
     try {
       let task = await _taskService.create(req.body)
       res.send(task)
