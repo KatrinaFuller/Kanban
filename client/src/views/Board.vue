@@ -19,7 +19,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch("getBoards");
-    // this.$store.dispatch("getLists");
+    this.$store.dispatch("getListsById", this.boardId);
   },
   props: ["boardId"],
   //props: ["listId"],
@@ -33,7 +33,7 @@ export default {
       );
     },
     lists() {
-      this.$store.state.lists;
+      return this.$store.state.lists;
     }
   },
   components: { List, CreateListModal }

@@ -1,6 +1,6 @@
 <template>
   <div class="List col-3 border rounded" @click="viewList()">
-    <h1>{{listProp.title}}</h1>
+    <h1>hi {{listProp.title}}</h1>
   </div>
 </template>
 

@@ -88,6 +88,7 @@ export default new Vuex.Store({
       try {
         // let res = await api.get("lists") //get all lists in entire db (/api/boards/:id/lists)
         let res = await api.get(`/boards/${payload}/lists`)
+
         commit("setLists", res.data)
 
       } catch (error) {
