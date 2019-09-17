@@ -22,7 +22,7 @@ export default new Vuex.Store({
     boards: [],
     activeBoard: {},
     lists: [],
-
+    tasks: []
   },
   mutations: {
     setUser(state, user) {
@@ -33,6 +33,9 @@ export default new Vuex.Store({
     },
     setLists(state, payload) {
       state.lists = payload
+    },
+    setTasks(state, payload) {
+      state.tasks = payload
     }
   },
   actions: {
@@ -87,7 +90,6 @@ export default new Vuex.Store({
     //#region -- LISTS --
     async getListsById({ commit, dispatch }, payload) {
       try {
-
         // let res = await api.get("lists") //get all lists in entire db (/api/boards/:id/lists)
         let res = await api.get(`/boards/${payload}/lists`)
 
@@ -117,10 +119,37 @@ export default new Vuex.Store({
       } catch (error) {
         console.error("store.js: removeList")
       }
-    }
+    },
+
+    //#endregion
+
+    // #region -- TASKS --
+
+    async getTasksById({ commit, dispatch }, payload) {
+      try {
+        // let res = await api.get("lists") //get all lists in entire db (/api/boards/:id/lists)
+        let res = await api.get(`/${payload.boardId}/lists/${payload.listId}/tasks`)
+
+        commit("setTasks", res.data)
+
+      } catch (error) {
+        console.error('store.js: getTasksById')
+      }
+    },
+
+    async addTask({ dispatch }, payload) {
+      try {
+        let res = await api.post("/tasks", payload)
+        dispatch("getTasksById", payload.listId)
+      } catch (error) {
+        console.error("store.js: addTask")
+
+      }
+    },
 
 
 
     //#endregion
+
   }
 })

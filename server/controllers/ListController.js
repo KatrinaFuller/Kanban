@@ -13,7 +13,7 @@ export default class ListController {
     this.router = express.Router()
       .get('', this.getAll)
       .get('/:id', this.getListsById)
-      .get('/:id/lists/:id', this.getTasks)
+      .get('/:id/tasks', this.getTasks)
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.delete)
@@ -40,7 +40,7 @@ export default class ListController {
 
   async getTasks(req, res, next) {
     try {
-      let task = await _taskService.find({ boardId: req.params.id })
+      let task = await _taskService.find({ listId: req.params.id })
       return res.send(task)
     } catch (error) {
       next(error)

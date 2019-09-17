@@ -13,7 +13,7 @@ export default class TaskController {
       // .use(Authorize.authenticated)
       .get('', this.getAll)
       .get('/:id', this.getById)
-      .get('/:id/lists/:id/tasks/:id', this.getComments)
+      .get('/:id/comments', this.getComments)
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.delete)

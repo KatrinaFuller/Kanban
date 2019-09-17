@@ -14,6 +14,7 @@ import List from "../components/List";
 import CreateListModal from "../components/CreateListModal";
 export default {
   name: "board",
+  props: ["boardId"],
   data() {
     return {};
   },
@@ -21,7 +22,6 @@ export default {
     this.$store.dispatch("getBoards");
     this.$store.dispatch("getListsById", this.$route.params.boardId);
   },
-  props: ["boardId"],
   //props: ["listId"],
   computed: {
     board() {
