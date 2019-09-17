@@ -23,7 +23,11 @@ export default {
   mounted() {
     this.$store.dispatch("getTasksById", this.listProp._id);
   },
-  computed: {},
+  computed: {
+    tasks() {
+      return this.$store.state.tasks[this.listProp._id] || [];
+    }
+  },
   methods: {
     // viewList() {
     //   this.$router.push({
