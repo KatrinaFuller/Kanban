@@ -12,7 +12,7 @@ export default class ListController {
   constructor() {
     this.router = express.Router()
       .get('', this.getAll)
-      .get('/:id', this.getById)
+      .get('/:id', this.getListsById)
       .get('/:id/lists/:id', this.getTasks)
       .post('', this.create)
       .put('/:id', this.edit)
@@ -26,7 +26,7 @@ export default class ListController {
       next(error)
     }
   }
-  async getById(req, res, next) {
+  async getListsById(req, res, next) {
     try {
       let list = await _listService.findById(req.params.id)
       if (!list) {
@@ -49,6 +49,7 @@ export default class ListController {
 
 
   async create(req, res, next) {
+    req.body.authorId = req.session.uid
     try {
       let list = await _listService.create(req.body)
       res.send(list)

@@ -13,7 +13,7 @@ export default class BoardsController {
       .use(Authorize.authenticated)
       .get('', this.getAll)
       .get('/:id', this.getById)
-      .get('/:id/lists', this.getLists)
+      .get('/:id/lists', this.getListsById)
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.delete)
@@ -40,9 +40,9 @@ export default class BoardsController {
     } catch (error) { next(error) }
   }
 
-  async getLists(req, res, next) {
+  async getListsById(req, res, next) {
     try {
-      let list = await _listService.find({ boardId: req.params.id })
+      let list = await _listService.find({ boardId: req.params.id, authorId: req.session.uid })
       return res.send(list)
     } catch (error) {
       next(error)

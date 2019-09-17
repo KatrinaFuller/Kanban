@@ -21,7 +21,8 @@ export default new Vuex.Store({
     user: {},
     boards: [],
     activeBoard: {},
-    lists: []
+    lists: [],
+
   },
   mutations: {
     setUser(state, user) {
@@ -86,6 +87,7 @@ export default new Vuex.Store({
     //#region -- LISTS --
     async getListsById({ commit, dispatch }, payload) {
       try {
+
         // let res = await api.get("lists") //get all lists in entire db (/api/boards/:id/lists)
         let res = await api.get(`/boards/${payload}/lists`)
 
@@ -98,8 +100,9 @@ export default new Vuex.Store({
 
     async addList({ dispatch }, payload) {
       try {
+
         let res = await api.post("/lists", payload)
-        dispatch("getLists")
+        dispatch("getListsById", payload.boardId)
       } catch (error) {
         console.error("store.js: addList")
 

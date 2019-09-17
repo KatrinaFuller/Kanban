@@ -2,7 +2,7 @@
   <div class="board container-fluid">
     {{board.title}}
     <div class="row">
-      <List v-for="list in lists" :listProp="list" :key="list._id" />
+      <List v-for="list in lists" :listProp="list" :boardProp="board" :key="list._id" />
     </div>
     <CreateListModal />
     <button class="btn btn-primary" data-toggle="modal" data-target="#create-list-modal">Add List</button>
@@ -19,7 +19,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch("getBoards");
-    this.$store.dispatch("getListsById", this.boardId);
+    this.$store.dispatch("getListsById", this.$route.params.boardId);
   },
   props: ["boardId"],
   //props: ["listId"],

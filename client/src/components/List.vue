@@ -1,6 +1,6 @@
 <template>
   <div class="List col-3 border rounded" @click="viewList()">
-    <h1>hi {{listProp.title}}</h1>
+    <h1>{{listProp.title}}</h1>
   </div>
 </template>
 
@@ -8,7 +8,7 @@
 <script>
 export default {
   name: "List",
-  props: ["listProp"],
+  props: ["listProp", "boardProp", "authorProp"],
   data() {
     return {};
   },
@@ -17,7 +17,10 @@ export default {
     viewList() {
       this.$router.push({
         name: "List",
-        params: { listId: this.listProp._id }
+        params: {
+          listId: this.listProp._id,
+          boardId: this.boardProp._id
+        }
       });
     }
   },

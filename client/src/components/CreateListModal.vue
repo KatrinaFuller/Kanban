@@ -1,5 +1,5 @@
 <template>
-  <div id="create-lists-modal" class="modal" tabindex="-1" role="dialog">
+  <div id="create-list-modal" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -38,14 +38,20 @@ export default {
   name: "create-list-modal",
   data() {
     return {
-      newList: {}
+      newList: {
+        title: "",
+        boardId: this.$route.params.boardId
+      }
     };
   },
   computed: {},
   methods: {
     addList() {
+      this.newList.boardId = this.$route.params.boardId;
+
       this.$store.dispatch("addList", this.newList);
       this.newList = {};
+      $(".close").click();
     }
   },
   components: {}
