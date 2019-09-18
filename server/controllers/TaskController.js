@@ -13,9 +13,9 @@ export default class TaskController {
       // .use(Authorize.authenticated)
       .get('', this.getAll)
       .get('/:id', this.getById)
-      .get('/:id/comments', this.getComments)
       .post('', this.create)
       .put('/:id', this.edit)
+      .put('/:id/comments', this.editComment)
       .delete('/:id', this.delete)
   }
 
@@ -40,21 +40,24 @@ export default class TaskController {
     }
   }
 
-  async getComments(req, res, next) {
-    try {
-      let comment = await _commentService.find({ boardId: req.params.id })
-      return res.send(comment)
-    } catch (error) {
-      next(error)
-    }
-  }
-
 
   async create(req, res, next) {
     req.body.authorId = req.session.uid
     try {
       let task = await _taskService.create(req.body)
       res.send(task)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async editComment(req, res, next) {
+    try {
+      let comment = await _taskService.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: true })
+      if (comment) {
+        return res.send(comment)
+      }
+      throw new Error("invalid comment")
     } catch (error) {
       next(error)
     }
