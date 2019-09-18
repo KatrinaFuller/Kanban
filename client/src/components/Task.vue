@@ -5,7 +5,7 @@
       <button type="button" class="btn btn-default x" @click="removeTask">X</button>
     </p>
     <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="comment" />
+      <input type="text" class="form-control" placeholder="comment" v-model="newComment.content" />
       <div class="input-group-append">
         <button
           class="btn btn-outline-secondary"
@@ -24,7 +24,9 @@ export default {
   name: "Task",
   props: ["taskProp"],
   data() {
-    return {};
+    return {
+      newComment: {}
+    };
   },
   computed: {},
   methods: {
@@ -32,7 +34,8 @@ export default {
       this.$store.dispatch("removeTask", this.taskProp);
     },
     addComment() {
-      this.$store.dispatch("addComment", this.taskProp);
+      this.newComment.taskId = this.taskProp._id;
+      this.$store.dispatch("addComment", this.newComment);
     }
   },
   components: {}
