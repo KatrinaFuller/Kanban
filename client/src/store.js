@@ -148,6 +148,16 @@ export default new Vuex.Store({
       }
     },
 
+    async removeTask({ dispatch }, payload) {
+      try {
+        let res = await api.delete('/tasks/' + payload._id)
+        dispatch('getTasksById', payload.listId)
+        // router.push({ name: "board" })
+      } catch (error) {
+        console.error("store.js: removeTask")
+      }
+    },
+
 
 
     //#endregion

@@ -1,6 +1,9 @@
 <template>
   <div class="Task col-12 border m-1">
-    <p>{{taskProp.description}}</p>
+    <p>
+      {{taskProp.description}}
+      <button type="button" class="btn btn-default x" @click="removeTask">X</button>
+    </p>
   </div>
 </template>
 
@@ -13,11 +16,18 @@ export default {
     return {};
   },
   computed: {},
-  methods: {},
+  methods: {
+    removeTask() {
+      this.$store.dispatch("removeTask", this.taskProp);
+    }
+  },
   components: {}
 };
 </script>
 
 
 <style scoped>
+.x {
+  color: red;
+}
 </style>
