@@ -5,11 +5,7 @@
       <div class="card-body">
         <h3>
           {{taskProp.description}}
-          <button
-            type="button"
-            class="btn btn-default x"
-            @click="removeTask"
-          >X</button>
+          <button type="button" class="btn x" @click="removeTask">X</button>
         </h3>
         <hr />
         <!-- comments -->
@@ -41,6 +37,11 @@
           </div>
         </div>
       </div>
+      <!-- dropdown  -->
+      <select v-model="newListId" @change="moveTask">
+        <option disabled value>Please select</option>
+        <option v-for="list in lists" :key="list._id" :value="list._id">{{list.title}}</option>
+      </select>
     </div>
     <br />
   </div>
@@ -53,10 +54,15 @@ export default {
   props: ["taskProp"],
   data() {
     return {
-      newComment: {}
+      newComment: {},
+      newListId: ""
     };
   },
-  computed: {},
+  computed: {
+    lists() {
+      return this.$store.state.lists;
+    }
+  },
   methods: {
     removeTask() {
       this.$store.dispatch("removeTask", this.taskProp);
@@ -69,7 +75,16 @@ export default {
     removeComment(comment) {
       comment.taskId = this.taskProp._id;
       comment.listId = this.taskProp.listId;
-      this.$store.dispatch("removeComment", comment); //check if this is correct
+      this.$store.dispatch("removeComment", comment);
+    },
+    moveTask() {
+      // console.log("it changed!1");
+      let payload = {
+        taskId: this.taskProp._id,
+        listId: this.newListId,
+        currentListId: this.taskProp.listId
+      };
+      this.$store.dispatch("moveTask", payload);
     }
   },
   components: {}

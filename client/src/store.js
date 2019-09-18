@@ -157,6 +157,16 @@ export default new Vuex.Store({
         console.error("store.js: removeTask")
       }
     },
+
+    async moveTask({ dispatch }, payload) {
+      try {
+        let res = await api.put(`/tasks/${payload.taskId}`, payload)
+        dispatch('getTasksById', payload.listId)
+        dispatch('getTasksById', payload.currentListId)
+      } catch (error) {
+        console.error("store.js: moveTask")
+      }
+    },
     //#endregion
 
     //#region --comments--

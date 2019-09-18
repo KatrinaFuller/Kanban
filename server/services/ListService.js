@@ -1,6 +1,9 @@
 import mongoose from "mongoose"
+import TaskService from "./TaskService"
 let Schema = mongoose.Schema
 let ObjectId = Schema.Types.ObjectId
+
+let _taskRepo = new TaskService().respository
 
 let _schema = new Schema({
   title: { type: String, required: true },
@@ -22,7 +25,7 @@ _schema.pre('deleteMany', function (next) {
 _schema.pre('findOneAndRemove', function (next) {
   //lets find all the lists and remove them
   Promise.all([
-    // _taskRepo.deleteMany({ boardId: this._conditions._id })
+    _taskRepo.deleteMany({ listId: this._conditions._id })
   ])
     .then(() => next())
     .catch(err => next(err))
