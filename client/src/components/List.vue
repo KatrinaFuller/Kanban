@@ -1,5 +1,5 @@
 <template>
-  <div class="List col-3 border rounded">
+  <div class="List col-6 border rounded">
     <h1>{{listProp.title}}</h1>
     <Task v-for="task in tasks" :taskProp="task" :key="task._id" />
 

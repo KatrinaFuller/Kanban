@@ -10,9 +10,9 @@ let _commentSchema = new Schema({
 let _taskSchema = new Schema({
   description: { type: String, required: true },
   listId: { type: ObjectId, ref: 'List', required: true },
-  authorId: { type: ObjectId, ref: 'List', required: true },
+  authorId: { type: ObjectId, ref: 'User', required: true },
   boardId: { type: ObjectId, ref: 'Board', required: true },
-  children: [_commentSchema]
+  comments: [_commentSchema]
 }, { timestamps: true })
 
 //TODO ask if we need this part (same as listService that was done for us)

@@ -1,18 +1,41 @@
 <template>
+  <!-- entire task column -->
   <div class="Task col-12 border m-1">
-    <p>
-      {{taskProp.description}}
-      <button type="button" class="btn btn-default x" @click="removeTask">X</button>
-    </p>
-    <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="comment" v-model="newComment.content" />
-      <div class="input-group-append">
-        <button
-          class="btn btn-outline-secondary"
-          type="button"
-          id="button-addon2"
-          @click="addComment"
-        >Add Comment</button>
+    <div class="card">
+      <div class="card-body">
+        <h3>
+          {{taskProp.description}}
+          <button
+            type="button"
+            class="btn btn-default x"
+            @click="removeTask"
+          >X</button>
+        </h3>
+        <hr />
+        <!-- comments -->
+        <div v-for="comment in this.taskProp.comments" :key="comment._id">
+          <p>
+            {{comment.content}}
+            <button class="btn btn-default x">X</button>
+          </p>
+        </div>
+        <!-- input to add comments -->
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="comment"
+            v-model="newComment.content"
+          />
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              id="button-addon2"
+              @click="addComment"
+            >Add Comment</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -34,8 +57,7 @@ export default {
       this.$store.dispatch("removeTask", this.taskProp);
     },
     addComment() {
-      this.newComment.boardId = this.$route.params.boardId;
-      this.newComment.listId = this.taskProp.listId.description;
+      this.newComment.listId = this.taskProp.listId;
       this.newComment.taskId = this.taskProp._id;
       this.$store.dispatch("addComment", this.newComment);
     }

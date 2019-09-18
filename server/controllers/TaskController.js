@@ -56,7 +56,7 @@ export default class TaskController {
   async createComment(req, res, next) {
     req.body.authorId = req.session.uid
     try {
-      let comment = await _taskService.create(req.body)
+      let comment = await _taskService.findOneAndUpdate({ _id: req.params.id, authorId: req.session.uid }, { $push: { comments: req.body } }, { new: true })
       res.send(comment)
     } catch (error) {
       next(error)

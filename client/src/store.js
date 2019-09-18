@@ -165,7 +165,7 @@ export default new Vuex.Store({
     async addComment({ dispatch }, payload) {
       try {
         let res = await api.post(`/tasks/${payload.taskId}/comments`, payload)
-        dispatch("getTasksById", payload.taskId)
+        dispatch("getTasksById", payload.listId)
       } catch (error) {
         console.error("store.js: addComment")
 
