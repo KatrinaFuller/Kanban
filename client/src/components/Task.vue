@@ -34,6 +34,8 @@ export default {
       this.$store.dispatch("removeTask", this.taskProp);
     },
     addComment() {
+      this.newComment.boardId = this.$route.params.boardId;
+      this.newComment.listId = this.taskProp.listId.description;
       this.newComment.taskId = this.taskProp._id;
       this.$store.dispatch("addComment", this.newComment);
     }
