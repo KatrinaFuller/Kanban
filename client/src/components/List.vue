@@ -1,7 +1,7 @@
 <template>
   <div class="List col-3 border rounded">
     <h1>{{listProp.title}}</h1>
-    <Task v-for="task in tasks" :taskProp="task" :listProp="list" :key="task._id" />
+    <Task v-for="task in tasks" :taskProp="task" :key="task._id" />
     <br />
     <button class="btn btn-danger" @click="removeList">Delete List</button>
     <CreateTaskModal :listId="listProp._id" />
@@ -35,9 +35,6 @@ export default {
   methods: {
     removeList() {
       this.$store.dispatch("removeList", this.listProp);
-    },
-    tasks() {
-      return this.$store.state.tasks;
     }
   },
   components: { Task, CreateTaskModal }

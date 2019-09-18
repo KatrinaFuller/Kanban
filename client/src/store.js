@@ -139,6 +139,7 @@ export default new Vuex.Store({
 
     async addTask({ dispatch }, payload) {
       try {
+        debugger
         let res = await api.post("/tasks", payload)
         dispatch("getTasksById", payload.listId)
       } catch (error) {

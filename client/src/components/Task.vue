@@ -8,7 +8,7 @@
 <script>
 export default {
   name: "Task",
-  props: ["taskProp", "listProp", "boardProp", "authorProp"],
+  props: ["taskProp"],
   data() {
     return {};
   },
