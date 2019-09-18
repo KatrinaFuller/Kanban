@@ -5,7 +5,11 @@
     <br />
     <button class="btn btn-danger" @click="removeList">Delete List</button>
     <CreateTaskModal :listId="listProp._id" />
-    <button class="btn btn-primary" data-toggle="modal" data-target="#create-task-modal">Add Task</button>
+    <button
+      class="btn btn-primary"
+      data-toggle="modal"
+      :data-target="`#create-task-modal-${this.listProp._id}`"
+    >Add Task</button>
   </div>
 </template>
 
@@ -29,18 +33,8 @@ export default {
     }
   },
   methods: {
-    // viewList() {
-    //   this.$router.push({
-    //     name: "List",
-    //     params: {
-    //       listId: this.listProp._id,
-    //       boardId: this.boardProp._id
-    //     }
-    //   });
-    // },
     removeList() {
       this.$store.dispatch("removeList", this.listProp);
-      // this.$store.dispatch("removeList", this.boardProp._id);
     },
     tasks() {
       return this.$store.state.tasks;
