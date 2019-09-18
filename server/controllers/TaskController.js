@@ -2,10 +2,10 @@ import _boardService from '../services/BoardService'
 import express from 'express'
 import { Authorize } from '../middleware/authorize.js'
 import TaskService from '../services/TaskService'
-import CommentService from '../services/CommentService'
+// import CommentService from '../services/CommentService'
 
 let _taskService = new TaskService().respository
-let _commentService = new CommentService().respository
+// let _commentService = new CommentService().respository
 
 export default class TaskController {
   constructor() {
@@ -14,8 +14,10 @@ export default class TaskController {
       .get('', this.getAll)
       .get('/:id', this.getById)
       .post('', this.create)
+      .post('/:id/comments', this.createComment)
+
       .put('/:id', this.edit)
-      .put('/:id/comments', this.editComment)
+      // .put('/:id/comments', this.editComment)
       .delete('/:id', this.delete)
   }
 
@@ -51,17 +53,27 @@ export default class TaskController {
     }
   }
 
-  async editComment(req, res, next) {
+  async createComment(req, res, next) {
+    req.body.authorId = req.session.uid
     try {
-      let comment = await _taskService.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: true })
-      if (comment) {
-        return res.send(comment)
-      }
-      throw new Error("invalid comment")
+      let comment = await _taskService.create(req.body)
+      res.send(comment)
     } catch (error) {
       next(error)
     }
   }
+
+  // async editComment(req, res, next) {
+  //   try {
+  //     let comment = await _taskService.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: true })
+  //     if (comment) {
+  //       return res.send(comment)
+  //     }
+  //     throw new Error("invalid comment")
+  //   } catch (error) {
+  //     next(error)
+  //   }
+  // }
 
   async edit(req, res, next) {
     try {

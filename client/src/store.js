@@ -22,7 +22,8 @@ export default new Vuex.Store({
     boards: [],
     activeBoard: {},
     lists: [],
-    tasks: {}
+    tasks: {},
+    comments: []
   },
   mutations: {
     setUser(state, user) {
@@ -36,7 +37,8 @@ export default new Vuex.Store({
     },
     setTasks(state, payload) {
       Vue.set(state.tasks, payload.listId, payload.tasks)
-    }
+    },
+
   },
   actions: {
     //#region -- AUTH STUFF --
@@ -157,9 +159,18 @@ export default new Vuex.Store({
         console.error("store.js: removeTask")
       }
     },
+    //#endregion
 
+    //#region --comments--
+    async addComment({ dispatch }, payload) {
+      try {
+        let res = await api.post(`/tasks/${payload.taskId}/comments`, payload)
+        dispatch("getTasksById", payload.taskId)
+      } catch (error) {
+        console.error("store.js: addComment")
 
-
+      }
+    }
     //#endregion
 
   }
