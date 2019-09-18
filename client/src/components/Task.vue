@@ -16,7 +16,11 @@
         <div v-for="comment in this.taskProp.comments" :key="comment._id">
           <p>
             {{comment.content}}
-            <button class="btn btn-default x">X</button>
+            <button
+              type="button"
+              class="btn btn-default x"
+              @click="removeComment(comment)"
+            >X</button>
           </p>
         </div>
         <!-- input to add comments -->
@@ -24,7 +28,7 @@
           <input
             type="text"
             class="form-control"
-            placeholder="comment"
+            placeholder="Enter comment"
             v-model="newComment.content"
           />
           <div class="input-group-append">
@@ -60,6 +64,11 @@ export default {
       this.newComment.listId = this.taskProp.listId;
       this.newComment.taskId = this.taskProp._id;
       this.$store.dispatch("addComment", this.newComment);
+    },
+    removeComment(comment) {
+      comment.taskId = this.taskProp._id;
+      comment.listId = this.taskProp.listId;
+      this.$store.dispatch("removeComment", comment); //check if this is correct
     }
   },
   components: {}

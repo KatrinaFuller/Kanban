@@ -170,6 +170,15 @@ export default new Vuex.Store({
         console.error("store.js: addComment")
 
       }
+    },
+
+    async removeComment({ dispatch }, payload) {
+      try {
+        let res = await api.put(`/tasks/${payload.taskId}/comments`, payload)
+        dispatch('getTasksById', payload.listId)
+      } catch (error) {
+        console.error("store.js: removeComment")
+      }
     }
     //#endregion
 

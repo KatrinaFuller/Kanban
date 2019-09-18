@@ -19,6 +19,7 @@ export default class TaskController {
       .put('/:id', this.edit)
       // .put('/:id/comments', this.editComment)
       .delete('/:id', this.delete)
+      .put('/:id/comments', this.deleteComment)
   }
 
   async getAll(req, res, next) {
@@ -91,6 +92,15 @@ export default class TaskController {
     try {
       await _taskService.findByIdAndRemove({ _id: req.params.id })
       res.send('deleted task')
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async deleteComment(req, res, next) {
+    try {
+      let comment = await _taskService.findOneAndUpdate({ _id: req.params.id, authorId: req.session.uid }, { $pull: { comments: req.body } }, { new: true })
+      res.send(comment)
     } catch (error) {
       next(error)
     }
