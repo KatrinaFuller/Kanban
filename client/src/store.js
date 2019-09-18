@@ -4,7 +4,6 @@ import Axios from 'axios'
 import router from './router'
 import AuthService from './AuthService'
 
-
 Vue.use(Vuex)
 
 //Allows axios to work locally or live
@@ -141,7 +140,6 @@ export default new Vuex.Store({
 
     async addTask({ dispatch }, payload) {
       try {
-        debugger
         let res = await api.post("/tasks", payload)
         dispatch("getTasksById", payload.listId)
       } catch (error) {

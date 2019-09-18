@@ -1,6 +1,6 @@
 <template>
   <!-- entire task column -->
-  <div class="Task col-12 border m-1">
+  <div class="Task col-12">
     <div class="card">
       <div class="card-body">
         <h3>
@@ -42,6 +42,7 @@
         </div>
       </div>
     </div>
+    <br />
   </div>
 </template>
 
@@ -79,5 +80,8 @@ export default {
 <style scoped>
 .x {
   color: red;
+}
+.card {
+  background-color: #e5e7eb;
 }
 </style>
