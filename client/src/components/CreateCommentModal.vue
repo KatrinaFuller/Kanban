@@ -26,11 +26,11 @@
                 required
               />
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn submit-button">Submit</button>
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn close-button" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
@@ -67,4 +67,10 @@ export default {
 
 
 <style scoped>
+.submit-button {
+  background-color: #8caba8;
+}
+.close-button {
+  background-color: #c5afbc;
+}
 </style>

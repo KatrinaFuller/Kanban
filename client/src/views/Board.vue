@@ -4,7 +4,7 @@
       <div class="col text-center">
         <div class="project-title">
           <!-- <h1>{{board.title}}</h1> -->
-          <span class="remove-board text-center">{{board.title}}</span>
+          <span class="remove-board">{{board.title}}</span>
           <span class="delete-board" @click="removeBoard(board)">x</span>
         </div>
         <hr />
