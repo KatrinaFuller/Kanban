@@ -1,6 +1,6 @@
 <template>
   <div
-    v-bind:id="`create-comment-modal-${this.taskId}`"
+    :id="`create-comment-modal-${this.taskProp._id}`"
     class="modal fade bd-example-modal-sm"
     tabindex="-1"
     role="dialog"
@@ -12,25 +12,26 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>
-      <div class="modal-body">
-        <form @submit.prevent="addTask()">
-          <div class="form-group">
-            <label for="description">Task</label>
-            <input
-              type="text"
-              class="form-control"
-              id="description"
-              placeholder="Enter description"
-              v-model="newTask.description"
-              required
-            />
-          </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <div class="modal-body">
+          <h1></h1>
+          <form @submit.prevent="addComment()">
+            <div class="form-group">
+              <!-- <label for="content">Comment</label> -->
+              <input
+                type="text"
+                class="form-control"
+                id="content"
+                placeholder="Enter your comment"
+                v-model="newComment.content"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
       </div>
     </div>
   </div>
@@ -40,11 +41,26 @@
 <script>
 export default {
   name: "create-comment-modal",
+  props: ["taskProp"],
   data() {
-    return {};
+    return {
+      newComment: {}
+    };
   },
   computed: {},
-  methods: {},
+  methods: {
+    addComment() {
+      this.newComment.listId = this.taskProp.listId;
+      this.newComment.taskId = this.taskProp._id;
+      this.$store.dispatch("addComment", this.newComment);
+      $(".close").click();
+    }
+    // removeComment(comment) {
+    //   comment.taskId = this.taskProp._id;
+    //   comment.listId = this.taskProp.listId;
+    //   this.$store.dispatch("removeComment", comment);
+    // }
+  },
   components: {}
 };
 </script>

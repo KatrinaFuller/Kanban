@@ -3,10 +3,8 @@
   <div class="Task col-12">
     <div class="card">
       <div class="card-body">
-        <h3>
-          {{taskProp.description}}
-          <button type="button" class="btn btn-xs x" @click="removeTask">X</button>
-        </h3>
+        <h3 class="inline">{{taskProp.description}}</h3>
+        <span class="bg-light text-danger rounded px-1 ml-1 pb-1" @click="removeTask">x</span>
         <hr />
         <!-- comments -->
         <div v-for="comment in this.taskProp.comments" :key="comment._id">
@@ -14,12 +12,12 @@
             {{comment.content}}
             <button
               type="button"
-              class="btn btn-xs x"
+              class="btn btn-sm x"
               @click="removeComment(comment)"
             >X</button>
           </p>
         </div>
-        <CreateCommentModal />
+        <CreateCommentModal :taskProp="taskProp" />
         <!-- input to add comments -->
         <!-- <div class="input-group mb-3">
           <input
@@ -34,14 +32,15 @@
             class="btn add-comment"
             type="button"
             id="button-addon2"
-            @click="addComment"
+            data-toggle="modal"
+            :data-target="`#create-comment-modal-${this.taskProp._id}`"
           >Add Comment</button>
         </div>
       </div>
       <!-- </div> -->
       <!-- dropdown  -->
       <select v-model="newListId" @change="moveTask">
-        <option disabled value>Please select</option>
+        <option disabled value>Move task to:</option>
         <option v-for="list in lists" :key="list._id" :value="list._id">{{list.title}}</option>
       </select>
     </div>
@@ -57,7 +56,6 @@ export default {
   props: ["taskProp"],
   data() {
     return {
-      newComment: {},
       newListId: ""
     };
   },
@@ -70,11 +68,11 @@ export default {
     removeTask() {
       this.$store.dispatch("removeTask", this.taskProp);
     },
-    addComment() {
-      this.newComment.listId = this.taskProp.listId;
-      this.newComment.taskId = this.taskProp._id;
-      this.$store.dispatch("addComment", this.newComment);
-    },
+    // addComment() {
+    //   this.newComment.listId = this.taskProp.listId;
+    //   this.newComment.taskId = this.taskProp._id;
+    //   this.$store.dispatch("addComment", this.newComment);
+    // },
     removeComment(comment) {
       comment.taskId = this.taskProp._id;
       comment.listId = this.taskProp.listId;
@@ -106,5 +104,8 @@ export default {
 }
 .add-comment {
   background-color: #8caba8;
+}
+.inline {
+  display: inline;
 }
 </style>
