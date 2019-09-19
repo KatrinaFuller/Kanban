@@ -19,24 +19,26 @@
             >X</button>
           </p>
         </div>
+        <CreateCommentModal />
         <!-- input to add comments -->
-        <div class="input-group mb-3">
+        <!-- <div class="input-group mb-3">
           <input
             type="text"
             class="form-control"
             placeholder="Enter comment"
             v-model="newComment.content"
           />
-          <div class="input-group-append">
-            <button
-              class="btn add-comment"
-              type="button"
-              id="button-addon2"
-              @click="addComment"
-            >Add Comment</button>
-          </div>
+        </div>-->
+        <div class="input-group-append">
+          <button
+            class="btn add-comment"
+            type="button"
+            id="button-addon2"
+            @click="addComment"
+          >Add Comment</button>
         </div>
       </div>
+      <!-- </div> -->
       <!-- dropdown  -->
       <select v-model="newListId" @change="moveTask">
         <option disabled value>Please select</option>
@@ -49,6 +51,7 @@
 
 
 <script>
+import CreateCommentModal from "../components/CreateCommentModal";
 export default {
   name: "Task",
   props: ["taskProp"],
@@ -87,7 +90,7 @@ export default {
       this.$store.dispatch("moveTask", payload);
     }
   },
-  components: {}
+  components: { CreateCommentModal }
 };
 </script>
 
