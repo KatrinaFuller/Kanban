@@ -55,6 +55,7 @@ export default {
       return this.$store.state.lists;
     },
     removeBoard(board) {
+      // debugger;
       this.$store.dispatch("removeBoard", board.boardId);
     }
   },
