@@ -1,13 +1,14 @@
 <template>
-  <div class="List col-6 border rounded">
-    <h1>{{listProp.title}}</h1>
+  <div class="List col-3 border rounded">
+    <div class="title">
+      <span class="remove-list" @click="removeList">{{listProp.title}}</span>
+      <span class="delete-list">x</span>
+    </div>
     <Task v-for="task in tasks" :taskProp="task" :key="task._id" />
-
     <br />
-    <button class="btn btn-danger" @click="removeList">Delete List</button>
     <CreateTaskModal :listId="listProp._id" />
     <button
-      class="btn btn-primary"
+      class="btn add-task"
       data-toggle="modal"
       :data-target="`#create-task-modal-${this.listProp._id}`"
     >Add Task</button>
@@ -44,4 +45,22 @@ export default {
 
 
 <style scoped>
+.title {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 35px;
+}
+.List {
+  background-color: #f2f2f1;
+  margin: 5px;
+  font-size: 19px;
+}
+.add-task {
+  background-color: #c5afbc;
+}
+.delete-list {
+  color: red;
+  font-weight: bold;
+}
 </style>

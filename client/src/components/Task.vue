@@ -5,7 +5,7 @@
       <div class="card-body">
         <h3>
           {{taskProp.description}}
-          <button type="button" class="btn x" @click="removeTask">X</button>
+          <button type="button" class="btn btn-xs x" @click="removeTask">X</button>
         </h3>
         <hr />
         <!-- comments -->
@@ -14,7 +14,7 @@
             {{comment.content}}
             <button
               type="button"
-              class="btn btn-default x"
+              class="btn btn-xs x"
               @click="removeComment(comment)"
             >X</button>
           </p>
@@ -29,7 +29,7 @@
           />
           <div class="input-group-append">
             <button
-              class="btn btn-outline-secondary"
+              class="btn add-comment"
               type="button"
               id="button-addon2"
               @click="addComment"
@@ -95,8 +95,13 @@ export default {
 <style scoped>
 .x {
   color: red;
+  background-color: #f9fafc;
 }
 .card {
-  background-color: #e5e7eb;
+  background-color: #a2798f;
+  color: #f2f2f1;
+}
+.add-comment {
+  background-color: #8caba8;
 }
 </style>
