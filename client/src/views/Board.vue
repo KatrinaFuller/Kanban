@@ -2,7 +2,11 @@
   <div class="board container-fluid body">
     <div class="row">
       <div class="col text-center">
-        <h1>{{board.title}}</h1>
+        <div class="project-title">
+          <!-- <h1>{{board.title}}</h1> -->
+          <span class="remove-board text-center">{{board.title}}</span>
+          <span class="delete-board" @click="removeBoard(board)">x</span>
+        </div>
         <hr />
       </div>
     </div>
@@ -20,6 +24,7 @@
       <List v-for="list in lists" :listProp="list" :boardProp="board" :key="list._id" />
     </div>
     <CreateListModal />
+    <!--not sure if we need this id part -->
   </div>
 </template>
 
@@ -28,7 +33,7 @@ import List from "../components/List";
 import CreateListModal from "../components/CreateListModal";
 export default {
   name: "board",
-  props: ["boardId"],
+  props: ["boardId", "boardProp"],
   data() {
     return {};
   },
@@ -48,13 +53,18 @@ export default {
     },
     lists() {
       return this.$store.state.lists;
+    },
+    removeBoard(board) {
+      this.$store.dispatch("removeBoard", board.boardId);
     }
   },
   components: { List, CreateListModal }
 };
 </script>
 <style scoped>
-h1 {
+.project-title {
+  display: flex;
+  justify-content: space-between;
   font-size: 3.5rem;
 }
 .body {
@@ -63,5 +73,9 @@ h1 {
 }
 .add {
   background-color: #c5afbc;
+}
+.delete-board {
+  color: red;
+  font-weight: bold;
 }
 </style>

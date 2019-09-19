@@ -1,8 +1,8 @@
 <template>
   <div class="List col-3 border rounded">
     <div class="title">
-      <span class="remove-list" @click="removeList">{{listProp.title}}</span>
-      <span class="delete-list">x</span>
+      <span class="remove-list">{{listProp.title}}</span>
+      <span class="delete-list" @click="removeList">x</span>
     </div>
     <Task v-for="task in tasks" :taskProp="task" :key="task._id" />
     <br />
