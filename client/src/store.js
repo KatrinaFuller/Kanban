@@ -86,6 +86,7 @@ export default new Vuex.Store({
         })
     },
 
+
     async removeBoard({ dispatch }, payload) {
       try {
         // debugger
@@ -94,17 +95,6 @@ export default new Vuex.Store({
         router.push({ name: "boards" })
       } catch (error) {
         console.error("store.js: removeBoard")
-      }
-    },
-
-    async removeBoards({ dispatch }, payload) {
-      try {
-        debugger
-        let res = await api.delete('/boards/' + payload._id)
-        dispatch('getBoards')
-        router.push({ name: "boards" })
-      } catch (error) {
-        console.error("store.js: removeBoards")
       }
     },
 
