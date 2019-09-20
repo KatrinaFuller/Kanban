@@ -12,7 +12,7 @@
             {{comment.content}}
             <button
               type="button"
-              class="btn btn-sm x"
+              class="btn btn-sm x bg-light text-danger rounded px-1 ml-1 pb-1"
               @click="removeComment(comment)"
             >X</button>
           </p>
@@ -27,7 +27,7 @@
             v-model="newComment.content"
           />
         </div>-->
-        <div class="input-group-append">
+        <div class="input-group-append justify-content-center">
           <button
             class="btn add-comment"
             type="button"
@@ -95,7 +95,7 @@ export default {
 
 <style scoped>
 .x {
-  color: red;
+  color: #cb3232;
   background-color: #f9fafc;
 }
 .card {

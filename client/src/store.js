@@ -37,6 +37,9 @@ export default new Vuex.Store({
     setTasks(state, payload) {
       Vue.set(state.tasks, payload.listId, payload.tasks)
     },
+    resetState(state, user) {
+      state.user = {}
+    }
 
   },
   actions: {
@@ -61,6 +64,7 @@ export default new Vuex.Store({
     },
     async logout({ commit, dispatch }) {
       try {
+
         let success = await AuthService.Logout()
         if (!success) { }
         commit('resetState')

@@ -8,7 +8,7 @@
     <br />
     <CreateTaskModal :listId="listProp._id" />
     <button
-      class="btn add-task"
+      class="btn add-task m-2"
       data-toggle="modal"
       :data-target="`#create-task-modal-${this.listProp._id}`"
     >Add Task</button>
@@ -60,7 +60,7 @@ export default {
   background-color: #c5afbc;
 }
 .delete-list {
-  color: red;
+  color: #cb3232;
   font-weight: bold;
 }
 </style>

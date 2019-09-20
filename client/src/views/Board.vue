@@ -13,7 +13,7 @@
     <div class="row">
       <div class="col-1">
         <button
-          class="btn btn-lg add"
+          class="btn btn-lg add mb-2"
           type="button"
           data-toggle="modal"
           data-target="#create-list-modal"
@@ -44,7 +44,6 @@ export default {
   //props: ["listId"],
   computed: {
     board() {
-      //FIXME This does not work on page reload because the boards array is empty in the store
       return (
         this.$store.state.boards.find(b => b._id == this.boardId) || {
           title: "Loading..."
@@ -68,14 +67,39 @@ export default {
   font-size: 3.5rem;
 }
 .body {
-  background-color: #c8c8c7;
+  /* background-color: #c8c8c7; */
   min-height: 100vh;
+  background: linear-gradient(
+      135deg,
+      #c8c8c7 21px,
+      #f5f5f5 22px,
+      #f5f5f5 24px,
+      transparent 24px,
+      transparent 67px,
+      #f5f5f5 67px,
+      #f5f5f5 69px,
+      transparent 69px
+    ),
+    linear-gradient(
+        225deg,
+        #c8c8c7 21px,
+        #f5f5f5 22px,
+        #f5f5f5 24px,
+        transparent 24px,
+        transparent 67px,
+        #f5f5f5 67px,
+        #f5f5f5 69px,
+        transparent 69px
+      )
+      0 64px;
+  background-color: #c8c8c7;
+  background-size: 64px 128px;
 }
 .add {
   background-color: #c5afbc;
 }
 .delete-board {
-  color: red;
+  color: #cb3232;
   font-weight: bold;
 }
 </style>
