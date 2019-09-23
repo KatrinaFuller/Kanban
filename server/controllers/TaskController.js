@@ -10,7 +10,7 @@ let _taskService = new TaskService().respository
 export default class TaskController {
   constructor() {
     this.router = express.Router()
-      // .use(Authorize.authenticated)
+      .use(Authorize.authenticated)
       .get('', this.getAll)
       .get('/:id', this.getById)
       .post('', this.create)
